@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+@import "styles/variables.scss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  font-size: $font-size--body;
+  line-height: $line-height--body;
+  font-family: 'Open Sans', Tahoma, Arial, serif;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+}

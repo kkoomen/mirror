@@ -1,0 +1,20 @@
+@import "styles/variables.scss";
+
+.Clock {
+  flex: 1 1 0;
+  padding: $padding;
+  text-align: right;
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  opacity: 0;
+  transform: translateX(100%);
+
+  &.fade-in {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .time {
+    font-size: $font-size--big;
+    line-height: $line-height--big;
+  }
+}

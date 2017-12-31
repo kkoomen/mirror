@@ -1,0 +1,86 @@
+@import "styles/variables.scss";
+@import "styles/mixins.scss";
+
+.Weather {
+  flex: 1 1 0;
+  padding: $padding;
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  opacity: 0;
+  transform: translateX(-100%);
+
+  &.fade-in {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .temperature {
+    font-size: $font-size--big;
+    line-height: $line-height--big;
+    display: inline-block;
+  }
+
+  .summary {
+    margin-bottom: 1rem;
+    font-size: $font-size--medium;
+    line-height: $line-height--medium;
+  }
+
+  .icon--clear-day::before {
+    @include icon('../../assets/forecast/Sun.png');
+  }
+
+  .icon--wind::before {
+    @include icon('../../assets/forecast/Wind.png');
+  }
+
+  .icon--cloudy::before {
+    @include icon('../../assets/forecast/Cloud.png');
+  }
+
+  .icon--partly-cloudy-day::before {
+    @include icon('../../assets/forecast/PartlySunny.png');
+  }
+
+  .icon--rain::before {
+    @include icon('../../assets/forecast/Rain.png');
+  }
+
+  .icon--snow-thin::before,
+  .icon--snow::before {
+    @include icon('../../assets/forecast/Snow.png');
+  }
+
+  .icon--fog::before {
+    @include icon('../../assets/forecast/Haze.png');
+  }
+
+  .icon--clear-night::before {
+    @include icon('../../assets/forecast/Moon.png');
+  }
+
+  .icon--partly-cloudy-night::before {
+    @include icon('../../assets/forecast/PartlyMoon.png');
+  }
+
+  .icon--thudnerstorm::before {
+    @include icon('../../assets/forecast/Storm.png');
+  }
+
+  .icon--tornado::before {
+    @include icon('../../assets/forecast/Tornado.png');
+  }
+
+  .icon--hail::before {
+    @include icon('../../assets/forecast/Hail.png');
+  }
+
+  .icon {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 1rem;
+
+    &:before {
+      font-size: 5rem;
+    }
+  }
+}
