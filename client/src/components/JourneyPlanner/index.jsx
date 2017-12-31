@@ -35,9 +35,9 @@ class JourneyPlanner extends Component {
       <div className={classes}>
         {this.props.journeys.map((journey, index) => (
           <div className={styles.journey} key={index}>
-            {true ? (
+            {journey.transportImage ? (
               <div className={styles['transport-image']}>
-                <img src="https://vt.ns-mlab.nl/v1/images/virm_4.png" />
+                <img src={journey.transportImage} />
               </div>
             ) : null}
             <div className={styles['departure-time']}>
