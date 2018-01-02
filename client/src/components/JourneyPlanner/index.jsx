@@ -27,12 +27,8 @@ class JourneyPlanner extends Component {
   }
 
   render() {
-    const classes = classNames(styles.JourneyPlanner, {
-      [styles['fade-in']]: this.props.faceDetected,
-    });
-
     return (
-      <div className={classes}>
+      <div className={styles.JourneyPlanner}>
         {this.props.journeys.map((journey, index) => (
           <div className={styles.journey} key={index}>
             {journey.transportImage ? (

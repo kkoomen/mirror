@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames/bind';
 
 import Weather from '../../components/Weather';
 import Clock from '../../components/Clock';
@@ -24,15 +25,19 @@ class Home extends Component {
   }
 
   render() {
+    const classes = classNames(styles.Home, {
+      [styles['fade-in']]: this.props.faceDetected,
+    });
+
     return (
-      <div className={styles.Home}>
+      <div className={classes}>
         <div className={styles['top-frame']}>
-          <Weather faceDetected={this.props.faceDetected} />
-          <Clock faceDetected={this.props.faceDetected} />
+          <Weather />
+          <Clock />
         </div>
 
         <div className={styles['bottom-frame']}>
-          <JourneyPlanner faceDetected={this.props.faceDetected} />
+          <JourneyPlanner />
         </div>
       </div>
     );
