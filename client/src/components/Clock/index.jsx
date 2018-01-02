@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import classNames from 'classnames/bind';
 
 import { updateClock } from '../../actions/Clock';
 

@@ -25,8 +25,12 @@ class Weather extends Component {
   }
 
   render() {
+    const iconClasses = classNames(styles.icon, {
+      [styles[`icon--${this.props.forecast.icon}`]]: true,
+    });
+
     return (
-      <div className={styles.icon}>
+      <div className={styles.Weather}>
         {Object.keys(this.props.forecast).length > 0 ? (
           <div className={styles.forecast}>
             <div className={styles.temperature}>
