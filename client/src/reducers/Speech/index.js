@@ -19,7 +19,7 @@ export default function speech(state = initialState, action) {
           ...state.queue,
           {
             type: action.speechType,
-            text: action.text,
+            text: action.text.replace(/\s+/g, ' ').trim(),
             timestamp: (new Date().toISOString()),
           },
         ],
