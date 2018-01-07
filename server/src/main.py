@@ -25,9 +25,9 @@ def weather():
     return json.dumps(weather)
 
 
-@app.route('/journey-planner/<string:departure>/<string:arrival>', methods=['GET'])
-def journeyPlanner(departure, arrival):
-    journeys = NS(departure, arrival).get_journeys()
+@app.route('/journey-planner', methods=['GET'])
+def journeyPlanner():
+    journeys = NS().get_journeys()
     return json.dumps(journeys)
 
 
@@ -38,6 +38,7 @@ def activity():
     return json.dumps({
         'detected': vision.face_detected,
     })
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

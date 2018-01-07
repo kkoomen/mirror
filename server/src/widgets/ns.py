@@ -3,16 +3,17 @@
 # vim:fenc=utf-8
 #
 
-from datetime import datetime, time
+from datetime import datetime
 import requests
 import json
+import settings
 
 
 class NS():
 
-    def __init__(self, departure=None, arrival=None):
-        self.departure = departure
-        self.arrival = arrival
+    def __init__(self):
+        self.departure = settings.NS_DEPARTURE_LOCATION
+        self.arrival = settings.NS_ARRIVAL_LOCATION
         self.headers = {
             'Accept': 'application/json, text/plain, */*',
             'Accept-Language': 'en-US,en;q=0.5',
@@ -26,6 +27,8 @@ class NS():
         journeys = []
         for journeyInfo in self.data['reismogelijkheden']:
             journey = {}
+
+            journey['cancelled'] = (journeyInfo['status'] == 'VERVALLEN')
 
             journey['departureTime'] = datetime.strptime(
                 journeyInfo['vertrektijd'],
