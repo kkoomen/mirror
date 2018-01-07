@@ -17,8 +17,8 @@ The project is built with Flask & React.
 # Setup
 
 - Put your DarkSky weather API token in `./server/src/.env`.
-- Enter (if needed) your daily departure / arrival in
-  `./client/src/components/JourneyPlanner/index.jsx`
+- Open `./server/src/settings.py` and enter your daily departure / arrival
+  locations.
 
 # Run the app
 

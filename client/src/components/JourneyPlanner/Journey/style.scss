@@ -1,0 +1,44 @@
+@import "styles/mixins.scss";
+@import "styles/variables.scss";
+
+.Journey {
+  transition: opacity 1s ease-in-out;
+  display: flex;
+  align-items: center;
+  font-size: $font-size--medium;
+  line-height: $line-height--medium;
+  opacity: 1;
+
+  &.cancelled {
+    opacity: 0.5;
+  }
+
+  .transport-image {
+    width: 20rem;
+    height: 10rem;
+    overflow: hidden;
+    display: block;
+    position: relative;
+    filter: grayscale(100%) contrast(500%);
+    margin-right: 2rem;
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+    }
+  }
+
+  .icon {
+    @include icon('../../../assets/right-arrow.png');
+
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+
+  .delay {
+    color: red;
+    margin-left: 1rem;
+  }
+}

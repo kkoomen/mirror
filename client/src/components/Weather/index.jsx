@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 
 import { updateWeather } from '../../actions/Weather';
+import { queueSpeechText } from '../../actions/Speech';
+import { SPEECH_TYPE_WEATHER } from '../../config/constants';
 
 import styles from './style.css';
 
@@ -20,21 +22,28 @@ class Weather extends Component {
     }, (1000 * 60 * 30));
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.forecast.summary != nextProps.forecast.summary) {
+      const text = `
+        Weather update: Today will be ${nextProps.forecast.temperature} degrees,
+        ${nextProps.forecast.summary}
+      `;
+
+      this.props.dispatch(queueSpeechText(SPEECH_TYPE_WEATHER, text));
+    }
+  }
+
   componentWillUnmount() {
     clearInterval(this.interval);
   }
 
   render() {
-    const classes = classNames(styles.Weather, {
-      [styles['fade-in']]: this.props.faceDetected,
-    });
-
     const iconClasses = classNames(styles.icon, {
       [styles[`icon--${this.props.forecast.icon}`]]: true,
     });
 
     return (
-      <div className={classes}>
+      <div className={styles.Weather}>
         {Object.keys(this.props.forecast).length > 0 ? (
           <div className={styles.forecast}>
             <div className={styles.temperature}>

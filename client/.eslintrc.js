@@ -614,6 +614,7 @@ module.exports = ({
     "react/sort-comp": 0,
 
     // Allow interaction for static elements
+    "jsx-a11y/media-has-caption": 0,
     "jsx-a11y/no-static-element-interactions": 0,
     "jsx-a11y/click-events-have-key-events": 0,
     "jsx-a11y/no-noninteractive-element-interactions": 0,
