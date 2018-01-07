@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 import Weather from '../../components/Weather';
 import Clock from '../../components/Clock';
 import JourneyPlanner from '../../components/JourneyPlanner';
+import Speech from '../../components/Speech';
 
 import { detectFace } from '../../actions/FaceDetection';
 
@@ -31,6 +32,8 @@ class Home extends Component {
 
     return (
       <div className={classes}>
+        <Speech />
+
         <div className={styles['top-frame']}>
           <Weather />
           <Clock />

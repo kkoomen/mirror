@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Journey from './Journey';
 import { updateJourneys } from '../../actions/JourneyPlanner';
 
 import styles from './style.css';
@@ -12,12 +13,10 @@ class JourneyPlanner extends Component {
   }
 
   componentDidMount() {
-    const departure = 'Enkhuizen';
-    const arrival = 'Amsterdam Centraal';
-    this.props.dispatch(updateJourneys(departure, arrival));
+    this.props.dispatch(updateJourneys());
 
     this.interval = setInterval(() => {
-      this.props.dispatch(updateJourneys(departure, arrival));
+      this.props.dispatch(updateJourneys());
     }, (1000 * 60));
   }
 
@@ -29,32 +28,8 @@ class JourneyPlanner extends Component {
     return (
       <div className={styles.JourneyPlanner}>
         {this.props.journeys.map((journey, index) => (
-          <div className={styles.journey} key={index}>
-            {journey.transportImage ? (
-              <div className={styles['transport-image']}>
-                <img src={journey.transportImage} />
-              </div>
-            ) : null}
-            <div className={styles['departure-time']}>
-              {journey.departureTime}
-            </div>
-            {journey.departureDelay > 0 ? (
-              <div className={styles.delay}>
-                (+{journey.departureDelay})
-              </div>
-            ) : null}
-            <div className={styles.icon} />
-            <div className={styles['arrival-time']}>
-              {journey.arrivalTime}
-            </div>
-            {journey.arrivalDelay > 0 ? (
-              <div className={styles.delay}>
-                (+{journey.arrivalDelay})
-              </div>
-            ) : null}
-          </div>
+          <Journey journey={journey} key={index} />
         ))}
-
       </div>
     );
   }

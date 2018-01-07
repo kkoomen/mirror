@@ -5,6 +5,7 @@ import journeyPlanner from './JourneyPlanner';
 import weather from './Weather';
 import clock from './Clock';
 import faceDetection from './FaceDetection';
+import speech from './Speech';
 
 export default combineReducers({
   routing: routerReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   weather,
   clock,
   faceDetection,
+  speech,
 });
