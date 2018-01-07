@@ -8,6 +8,7 @@
 
 # production
 /build
+build.zip
 
 # misc
 .DS_Store
@@ -27,3 +28,6 @@ tags.lock
 
 # generated files
 *.css
+
+# Compressed
+*.zip
