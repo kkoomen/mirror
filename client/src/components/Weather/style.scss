@@ -6,15 +6,11 @@
   padding: $padding;
 
   .temperature {
-    font-size: $font-size--big;
-    line-height: $line-height--big;
     display: inline-block;
   }
 
   .summary {
     margin-bottom: 1rem;
-    font-size: $font-size--medium;
-    line-height: $line-height--medium;
   }
 
   .icon--clear-day::before {

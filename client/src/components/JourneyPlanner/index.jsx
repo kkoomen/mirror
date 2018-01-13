@@ -27,13 +27,29 @@ class JourneyPlanner extends Component {
   render() {
     return (
       <div className={styles.JourneyPlanner}>
-        {this.props.journeys.map((journey, index) => (
+        <div>
+          <h2>{this.props.journeys.departure}</h2>
+        </div>
+
+        <div>
+          <h2>{this.props.journeys.arrival}</h2>
+        </div>
+
+        {this.props.journeys.schedules.map((journey, index) => (
           <Journey journey={journey} key={index} />
         ))}
       </div>
     );
   }
 }
+
+JourneyPlanner.defaultProps = {
+  journeys: {
+    departure: 'Unknown',
+    arrival: 'Unknown',
+    schedules: [],
+  },
+};
 
 function mapStateToProps(state, ownProps) {
   return {

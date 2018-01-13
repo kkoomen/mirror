@@ -23,7 +23,7 @@ WEATHER_UNIT = 'auto'
 
 # Go to https://www.ns.nl/en/journeyplanner/ to find out about your departure
 # and arrival options. A simple typo gives different information so make sure
-# you copy/paste your departure / arrival well.
+# you copy-paste your departure / arrival well in the env file.
 # ---------------------------------------------------------------------------
-NS_DEPARTURE_LOCATION = 'Enkhuizen'
-NS_ARRIVAL_LOCATION = 'Amsterdam Centraal'
+NS_DEPARTURE_LOCATION = env['NS_DEPARTURE_LOCATION']
+NS_ARRIVAL_LOCATION = env['NS_ARRIVAL_LOCATION']

@@ -1,15 +1,20 @@
 import { JOURNEYS_UPDATE } from '../../actions/JourneyPlanner';
 
 const initialState = {
-  journeys: [],
+  departure: null,
+  arrival: null,
+  schedules: [],
 };
 
 export default function journeyPlanner(state = initialState, action) {
   switch (action.type) {
     case JOURNEYS_UPDATE: {
-      const newState = { ...state };
-      newState.journeys = action.journeys;
-      return newState;
+      return {
+        ...state,
+        departure: action.data.departure,
+        arrival: action.data.arrival,
+        schedules: action.data.schedules,
+      };
     }
 
     default: {

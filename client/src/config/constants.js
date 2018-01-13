@@ -13,3 +13,4 @@ export const API_URL = (process.env.NODE_ENV === 'raspberrypi')
  */
 export const SPEECH_TYPE_WEATHER = 'WEATHER';
 export const SPEECH_TYPE_JOURNEY_PLANNER = 'JOURNEY_PLANNER';
+export const SPEECH_TYPE_GREETING = 'GREETING';

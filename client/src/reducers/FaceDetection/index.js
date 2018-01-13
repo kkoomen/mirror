@@ -7,9 +7,10 @@ const initialState = {
 export default function faceDetection(state = initialState, action) {
   switch (action.type) {
     case DETECT_FACE: {
-      const newState = { ...state };
-      newState.detected = action.detected;
-      return newState;
+      return {
+        ...state,
+        detected: action.detected,
+      };
     }
 
     default: {

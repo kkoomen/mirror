@@ -47,17 +47,17 @@ class Weather extends Component {
         {Object.keys(this.props.forecast).length > 0 ? (
           <div className={styles.forecast}>
             <div className={styles.temperature}>
-              {this.props.forecast.temperature} &deg;
+              <h1>{this.props.forecast.temperature} &deg;</h1>
             </div>
             <div className={iconClasses} />
             <div className={styles.summary}>
-              {this.props.forecast.summary}
+              <h2>{this.props.forecast.summary}</h2>
             </div>
             <div className={styles.location}>
-              {this.props.forecast.location}
+              <p>{this.props.forecast.location}</p>
             </div>
           </div>
-        ) : null}
+        ) : 'Unknown'}
       </div>
     );
   }

@@ -24,9 +24,15 @@ class Clock extends Component {
   render() {
     return (
       <div className={styles.Clock}>
-        <div className={styles.time}>{this.props.clock.time}</div>
-        <div className={styles.weekday}>{this.props.clock.weekday}</div>
-        <div className={styles['full-date']}>{this.props.clock.fullDate}</div>
+        <div className={styles.time}>
+          <h1>{this.props.clock.time}</h1>
+        </div>
+        <div className={styles.weekday}>
+          <p>{this.props.clock.weekday}</p>
+        </div>
+        <div className={styles['full-date']}>
+          <p>{this.props.clock.fullDate}</p>
+        </div>
       </div>
     );
   }

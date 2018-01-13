@@ -14,6 +14,7 @@ from flask_cors import CORS
 from widgets.ns import NS
 from widgets.weather import Weather
 from vision import Vision
+import settings
 
 app = Flask(__name__)
 CORS(app)
@@ -28,7 +29,11 @@ def weather():
 @app.route('/journey-planner', methods=['GET'])
 def journeyPlanner():
     journeys = NS().get_journeys()
-    return json.dumps(journeys)
+    return json.dumps({
+        'departure': settings.NS_DEPARTURE_LOCATION,
+        'arrival': settings.NS_ARRIVAL_LOCATION,
+        'schedules': journeys,
+    })
 
 
 @app.route('/activity', methods=['GET'])

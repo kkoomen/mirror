@@ -1,0 +1,23 @@
+h1 {
+  font-size: $font-size--big;
+  line-height: $line-height--big;
+}
+
+h2 {
+  font-size: $font-size--medium;
+  line-height: $line-height--medium;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}

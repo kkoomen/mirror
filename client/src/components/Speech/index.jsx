@@ -13,6 +13,7 @@ class Speech extends Component {
     super(props);
 
     this.onSpeechEnded = this.onSpeechEnded.bind(this);
+    this.canSpeak = this.canSpeak.bind(this);
 
     this.audio = new Audio();
     this.audio.onended = this.onSpeechEnded;
@@ -21,7 +22,7 @@ class Speech extends Component {
   componentDidMount() {
     this.interval = setInterval(() => {
       this.props.dispatch(refreshSpeechQueue());
-    }, (1000 * 10));
+    }, (1000 * 60));
   }
 
   componentWillUnmount() {
@@ -32,8 +33,17 @@ class Speech extends Component {
     this.props.dispatch(deleteSpeechQueueIndex(0));
   }
 
+  canSpeak() {
+    const hour = parseInt(new Date().format('hh'));
+    if (hour >= 6 && hour < 22) {
+      return true;
+    }
+
+    return false;
+  }
+
   render() {
-    if (this.props.queue.length > 0 && this.audio.paused) {
+    if (this.props.queue.length > 0 && this.audio.paused && this.canSpeak()) {
       const params = queryString.stringify({
         src: 'pw',
         r: 37,
