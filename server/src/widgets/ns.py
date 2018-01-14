@@ -76,8 +76,8 @@ class NS():
     @property
     def data(self):
         params = {
-            'aankomstlocatie': 'TREINSTATION-{}'.format(self.departure),
-            'vertreklocatie': 'TREINSTATION-{}'.format(self.arrival),
+            'vertreklocatie': 'TREINSTATION-{}'.format(self.departure),
+            'aankomstlocatie': 'TREINSTATION-{}'.format(self.arrival),
             'onbeperktReizen': 'false',
             'overstaptijd': '0',
             'tijdstip': datetime.now().strftime('%Y-%m-%dT%H:%M'),
