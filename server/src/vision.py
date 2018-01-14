@@ -3,54 +3,68 @@
 # vim:fenc=utf-8
 #
 
-"""
-TODO
-"""
-
-
-import picamera
-import picamera.array
+from picamera.array import PiRGBArray
+from picamera import PiCamera
+from threading import Thread
+import numpy as np
 import cv2
 
-class Vision():
+class PiVideoStream:
 
-    def __init__(self):
-        self.resolution = (640, 480)
-        self.framerate = 32
+    def __init__(self, resolution=(640, 480), framerate=30):
+        self.camera = PiCamera()
+        self.camera.hflip = True
+        self.camera.vflip = True
+        self.camera.resolution = resolution
+        self.camera.framerate = framerate
+        self.rawCapture = PiRGBArray(self.camera, size=resolution)
+        self.stream = self.camera.capture_continuous(self.rawCapture, format='bgr', use_video_port=True)
+        self.image = None
+        self.stopped = False
+
+        self.cascade = 'cascades/haarcascade_frontalface_default.xml'
+        self.face_cascade = cv2.CascadeClassifier(self.cascade)
         self.face_detected = False
 
-    def capture(self, cascade='cascades/haarcascade_frontalface_default.xml', debug=False):
-        face_cascade = cv2.CascadeClassifier(cascade)
-        with picamera.PiCamera() as camera:
-            with picamera.array.PiRGBArray(camera) as stream:
-                camera.resolution = self.resolution
-                camera.vflip = True
-                camera.hflip = True
+    def start(self):
+        t = Thread(target=self.update)
+        t.daemon = True
+        t.start()
+        return self
 
-                camera.capture(stream, 'bgr', use_video_port=True)
-                frame = stream.array
+    def update(self):
+        for frame in self.stream:
+            self.image = frame.array
+            self.rawCapture.truncate(0)
 
-                gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                scale_factor = 1.3
-                min_neighbors = 6
-                faces = face_cascade.detectMultiScale(gray_frame, scale_factor, min_neighbors)
-                if len(faces) > 0:
+            if self.stopped:
+                self.stream.close()
+                self.rawCapture.close()
+                self.camera.close()
+                return
+
+    def read(self):
+        return self.image
+
+
+    def detect_face(self):
+        gray = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
+        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+        claheGray = clahe.apply(gray)
+
+        faces = self.face_cascade.detectMultiScale(claheGray,1.3,5)
+        if len(faces) > 0:
+            for (x,y,w,h) in faces:
+                if w > 90 or h > 90:
                     self.face_detected = True
-                    if debug:
-                        for (x, y, w, h) in faces:
-                            cv2.rectangle(frame, (x, y), (x+w, y+h), (255,0,0), 2)
+                    #detected_face = cv2.rectangle(image,(x,y),(x+w,y+h),(0, 0, 255), 2)
+                    break
                 else:
                     self.face_detected = False
+        else:
+            self.face_detected = False
 
-                if debug:
-                    cv2.imshow('frame', frame)
-                    # key = cv2.waitKey(1) & 0xFF
-                    # if key == ord('q') or key == 27:
-                        # break
+        return self.face_detected
 
-                # reset the stream before the next capture
-                stream.seek(0)
-                stream.truncate()
-
-                if debug:
-                    cv2.destroyAllWindows()
+    def stop(self):
+        self.stopped = True

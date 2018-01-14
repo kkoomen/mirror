@@ -10,10 +10,11 @@ TODO
 
 from flask import Flask, json
 from flask_cors import CORS
+import time
 
 from widgets.ns import NS
 from widgets.weather import Weather
-from vision import Vision
+from vision import PiVideoStream
 import settings
 
 app = Flask(__name__)
@@ -38,12 +39,20 @@ def journeyPlanner():
 
 @app.route('/activity', methods=['GET'])
 def activity():
-    vision = Vision()
-    vision.capture()
+    detected = stream.detect_face()
     return json.dumps({
-        'detected': vision.face_detected,
+        'detected': detected,
     })
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    # Run the camera & sleep for X seconds to let it warm up.
+    stream = PiVideoStream()
+    stream.start()
+    time.sleep(2)
+
+    # Finally run our app.
+    app.run(host='0.0.0.0', debug=False, use_reloader=False)
+
+    # Stop the stream when the app is being closed.
+    stream.stop()
