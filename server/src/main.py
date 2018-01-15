@@ -40,6 +40,7 @@ def journeyPlanner():
 @app.route('/activity', methods=['GET'])
 def activity():
     detected = stream.detect_face()
+    # detected = False
     return json.dumps({
         'detected': detected,
     })

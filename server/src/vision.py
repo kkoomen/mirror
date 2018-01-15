@@ -11,13 +11,16 @@ import cv2
 
 class PiVideoStream:
 
-    def __init__(self, resolution=(640, 480), framerate=30):
+    def __init__(self):
+        self.resolution = (112, 80)
+        self.framerate = 1
+
         self.camera = PiCamera()
         self.camera.hflip = True
         self.camera.vflip = True
-        self.camera.resolution = resolution
-        self.camera.framerate = framerate
-        self.rawCapture = PiRGBArray(self.camera, size=resolution)
+        self.camera.resolution = self.resolution
+        self.camera.framerate = self.framerate
+        self.rawCapture = PiRGBArray(self.camera, size=self.resolution)
         self.stream = self.camera.capture_continuous(self.rawCapture, format='bgr', use_video_port=True)
         self.image = None
         self.stopped = False
@@ -48,19 +51,16 @@ class PiVideoStream:
 
 
     def detect_face(self):
+        if self.image is None:
+            return False
+
         gray = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
-        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
         claheGray = clahe.apply(gray)
 
-        faces = self.face_cascade.detectMultiScale(claheGray,1.3,5)
+        faces = self.face_cascade.detectMultiScale(claheGray, 1.01, 4)
         if len(faces) > 0:
-            for (x,y,w,h) in faces:
-                if w > 90 or h > 90:
-                    self.face_detected = True
-                    #detected_face = cv2.rectangle(image,(x,y),(x+w,y+h),(0, 0, 255), 2)
-                    break
-                else:
-                    self.face_detected = False
+            self.face_detected = True
         else:
             self.face_detected = False
 

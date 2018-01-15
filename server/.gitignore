@@ -5,3 +5,8 @@ env/
 tags
 tags.temp
 tags.lock
+
+*.log
+
+*.swp
+*.swo
