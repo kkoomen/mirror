@@ -63,32 +63,53 @@ class Journey extends Component {
   render() {
     const classes = classNames(styles.Journey, {
       [styles.cancelled]: this.props.journey.cancelled,
+      [styles.malfunction]: this.props.journey.malfunction,
     });
+
+    const transportImageClasses = classNames(styles['transport-image'], {
+      [styles['has-transport-image']]: this.props.journey.transportImage,
+    });
+
+    const transportImage = this.props.journey.transportImage
+      || 'https://vt.ns-mlab.nl/v1/images/virm_6.png';
 
     return (
       <div className={classes}>
-        {this.props.journey.transportImage ? (
-          <div className={styles['transport-image']}>
-            <img src={this.props.journey.transportImage} />
-          </div>
-        ) : null}
-        <div className={styles['departure-time']}>
-          {this.props.journey.departureTime}
+        <div className={transportImageClasses}>
+          <img src={transportImage} />
         </div>
-        {this.props.journey.departureDelay > 0 ? (
-          <div className={styles.delay}>
-            (+{this.props.journey.departureDelay})
+
+        <div className={styles['info-wrapper']}>
+          <div className={styles['info-container']}>
+            <div className={styles['departure-time']}>
+              {this.props.journey.departureTime}
+            </div>
+
+            {this.props.journey.departureDelay > 0 ? (
+              <div className={styles.delay}>
+                (+{this.props.journey.departureDelay})
+              </div>
+            ) : null}
+
+            <div className={styles.icon} />
+
+            <div className={styles['arrival-time']}>
+              {this.props.journey.arrivalTime}
+            </div>
+
+            {this.props.journey.arrivalDelay > 0 ? (
+              <div className={styles.delay}>
+                (+{this.props.journey.arrivalDelay})
+              </div>
+            ) : null}
           </div>
-        ) : null}
-        <div className={styles.icon} />
-        <div className={styles['arrival-time']}>
-          {this.props.journey.arrivalTime}
+
+          {this.props.journey.error ? (
+            <div className={styles['error-container']}>
+              {this.props.journey.error}
+            </div>
+          ) : null}
         </div>
-        {this.props.journey.arrivalDelay > 0 ? (
-          <div className={styles.delay}>
-            (+{this.props.journey.arrivalDelay})
-          </div>
-        ) : null}
       </div>
     );
   }

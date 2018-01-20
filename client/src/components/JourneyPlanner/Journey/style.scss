@@ -2,15 +2,44 @@
 @import "styles/variables.scss";
 
 .Journey {
-  transition: opacity 1s ease-in-out;
+  transition: opacity 1s cubic-bezier(0.23, 0, 0.03, 1);
   display: flex;
   align-items: center;
   font-size: $font-size--medium;
   line-height: $line-height--medium;
   opacity: 1;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
 
   &.cancelled {
     opacity: 0.5;
+  }
+
+  &.malfunction {
+    &:before {
+      @include icon('../../../assets/warning.svg');
+      z-index: 2;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  .info-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .info-container {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .error-container {
+    color: red;
+    font-size: 14px;
   }
 
   .transport-image {
@@ -19,10 +48,10 @@
     overflow: hidden;
     display: block;
     position: relative;
-    filter: grayscale(100%) contrast(500%);
     margin-right: 2rem;
 
     img {
+      filter: grayscale(100%) contrast(500%);
       position: absolute;
       top: 0;
       left: 0;
@@ -31,7 +60,7 @@
   }
 
   .icon {
-    @include icon('../../../assets/right-arrow.png');
+    @include icon('../../../assets/right-arrow.svg');
 
     margin-left: 2rem;
     margin-right: 2rem;
