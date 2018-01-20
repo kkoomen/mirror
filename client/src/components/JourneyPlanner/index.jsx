@@ -43,18 +43,10 @@ class JourneyPlanner extends Component {
   }
 }
 
-JourneyPlanner.defaultProps = {
-  journeys: {
-    departure: 'Unknown',
-    arrival: 'Unknown',
-    schedules: [],
-  },
-};
-
 function mapStateToProps(state, ownProps) {
   return {
     ...ownProps,
-    journeys: state.journeyPlanner.journeys,
+    journeys: state.journeyPlanner,
   };
 }
 

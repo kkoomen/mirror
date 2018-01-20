@@ -21,7 +21,7 @@ class Home extends Component {
 
     this.interval = setInterval(() => {
       this.props.dispatch(detectFace());
-    }, 2000);
+    }, 1000 * 2);
   }
 
   render() {
