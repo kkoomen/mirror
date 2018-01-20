@@ -29,6 +29,13 @@ class NS():
             journey = {}
 
             journey['cancelled'] = (journeyInfo['status'] == 'VERVALLEN')
+            journey['malfunction'] = (journeyInfo['status'] == 'ALTERNATIEF')
+
+            if journey['cancelled']:
+                journey['error'] = 'This journey has been cancelled'
+
+            if journey['malfunction']:
+                journey['error'] = 'This journey has one or more malfunctions'
 
             journey['departureTime'] = datetime.strptime(
                 journeyInfo['vertrektijd'],
