@@ -6,7 +6,9 @@ widgets on the screen will animate in once there has been a face detected.
 
 The project is built with Flask & React.
 
-![screenshot](screenshot.png)
+![photo of the mirror](screenshot2.jpg)
+
+![appliation screenshot](screenshot.png)
 
 
 # Installation
