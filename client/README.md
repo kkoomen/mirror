@@ -1,3 +1,0 @@
-# MY APP
-
-[description]
