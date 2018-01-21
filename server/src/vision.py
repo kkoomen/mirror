@@ -12,22 +12,6 @@ import cv2
 from datetime import datetime
 import os
 
-def get_cpu_temperature():
-    res = os.popen('vcgencmd measure_temp').readline()
-    return float(res.replace("temp=", "").replace("'C\n", ""))
-
-def allowed_to_stream():
-    state = False
-    temp = get_cpu_temperature()
-    hour = int(datetime.now().strftime('%H'))
-
-    # Disable if temperature is 80+ because we don't want to overheat the
-    # camera.
-    if temp < 80 and (hour >= 6 and hour < 22):
-        state = True
-
-    return state
-
 class PiVideoStream:
 
     def __init__(self):
@@ -59,7 +43,7 @@ class PiVideoStream:
             self.image = frame.array
             self.rawCapture.truncate(0)
 
-            if self.stopped or not allowed_to_stream():
+            if self.stopped:
                 self.stream.close()
                 self.rawCapture.close()
                 self.camera.close()

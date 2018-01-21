@@ -61,7 +61,9 @@ class NS():
 
             journey['transportImage'] = self.get_transport_image(journeyInfo)
             journeys.append(journey)
-        return journeys
+
+        # Only return the last 5 journeys.
+        return journeys[0:5]
 
     def get_transport_image(self, journeyInfo):
         params = {
