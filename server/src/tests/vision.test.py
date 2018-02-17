@@ -13,9 +13,33 @@ from picamera import PiCamera
 import time
 import cv2
 
+def average_hsv(roi):
+    """ Average the HSV colors in a region of interest.
+    :param roi: the image array
+    :returns: tuple
+    """
+    h   = 0
+    s   = 0
+    v   = 0
+    num = 0
+    for y in range(len(roi)):
+        if y % 10 == 0:
+            for x in range(len(roi[y])):
+                if x % 10 == 0:
+                    chunk = roi[y][x]
+                    num += 1
+                    h += chunk[0]
+                    s += chunk[1]
+                    v += chunk[2]
+    h /= num
+    s /= num
+    v /= num
+    return (int(h), int(s), int(v))
+
+
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
-resolution = (100, 75)
+resolution = (112, 80)
 camera.resolution = resolution
 camera.framerate = 10
 camera.hflip = True
@@ -35,6 +59,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     image = frame.array
 
     # show the frame
+    hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
     claheGray = clahe.apply(gray)
@@ -47,6 +72,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     cv2.imshow('default', image)
     cv2.imshow('gray', gray)
     cv2.imshow('claheGray', claheGray)
+    cv2.imshow('HSV', hsv)
+    h, s, v = average_hsv(hsv)
     key = cv2.waitKey(1) & 0xFF
 
     # clear the stream in preparation for the next frame
