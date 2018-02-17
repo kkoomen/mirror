@@ -92,7 +92,7 @@ class PiVideoStream:
         # won't show any data, which we really do want to.
         faces = self.face_cascade.detectMultiScale(claheGray, 1.01, 4)
         hour = int(datetime.now().strftime('%H'))
-        if len(faces) > 0 or v < 90 and (6 <= hour <= 22):
+        if len(faces) > 0 or v < 90 and (6 <= hour < 22):
             self.face_detected = True
         else:
             self.face_detected = False

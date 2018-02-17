@@ -3,10 +3,6 @@
 # vim:fenc=utf-8
 #
 
-"""
-TODO
-"""
-
 
 from flask import Flask, json
 from flask_cors import CORS
@@ -40,7 +36,6 @@ def journeyPlanner():
 @app.route('/activity', methods=['GET'])
 def activity():
     detected = stream.detect_face()
-    # detected = False
     return json.dumps({
         'detected': detected,
     })

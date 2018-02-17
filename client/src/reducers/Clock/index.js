@@ -15,7 +15,7 @@ export default function clock(state = initialState, action) {
         ...state,
         time: new Date().format('hh:mm'),
         weekday: new Date().format('DDDD'),
-        date: new Date().format('DD MMM, YYYY'),
+        fullDate: new Date().format('DD MMM, YYYY'),
       };
     }
 

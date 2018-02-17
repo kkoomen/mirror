@@ -50,6 +50,24 @@
     position: relative;
     margin-right: 2rem;
 
+    &:not(.has-transport-image) {
+      img {
+        opacity: 0.5;
+      }
+
+      &:before {
+        @include icon('../../../assets/question-mark.svg');
+        z-index: 2;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: red;
+        border-radius: 50%;
+        border: 6px solid red;
+      }
+    }
+
     img {
       filter: grayscale(100%) contrast(500%);
       position: absolute;
