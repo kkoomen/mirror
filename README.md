@@ -4,14 +4,15 @@
 
 This is my version of the famous
 [Smart Mirror](https://github.com/HackerHouseYT/Smart-Mirror/) project. The
-widgets on the screen will animate in once there has been a face detected.
+widgets on the screen will animate in once there has been a face detected. When
+the room is too dark it is unable to recognize faces so it will always show the
+data at that moment.
 
 The project is built with Flask & React used on a Raspberry PI Model B.
 
 ![photo of the mirror](screenshot2.jpg)
 
 ![appliation screenshot](screenshot.png)
-
 
 # Installation
 
@@ -30,4 +31,4 @@ Open `./server/src/.env` and fill in all the variables.
 ### Rotate screen
 
 Since the mirror is in portrait mode we have to flip the screen 90 degrees.
-Add `display_rotate=1` to `/boot/config.txt`:
+Add `display_rotate=1` to `/boot/config.txt` and reboot to apply changes.
