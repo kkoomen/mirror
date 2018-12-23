@@ -6,6 +6,7 @@
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 from threading import Thread
+from os.path import join, abspath, dirname
 import numpy as np
 import cv2
 
@@ -50,8 +51,9 @@ class PiVideoStream:
         self.image = None
         self.stopped = False
 
-        self.cascade = 'cascades/haarcascade_frontalface_default.xml'
-        self.face_cascade = cv2.CascadeClassifier(self.cascade)
+        basedir = abspath(dirname(__file__))
+        self.cascadePath = join(basedir, 'cascades', 'haarcascade_frontalface_default.xml')
+        self.face_cascade = cv2.CascadeClassifier(self.cascadePath)
         self.face_detected = False
 
     def start(self):
