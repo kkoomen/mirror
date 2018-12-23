@@ -37,7 +37,6 @@ pip3 install -r requirements.txt
 # OpenCV dependencies.
 sudo apt-get install -y libcblas-dev libhdf5-dev libhdf5-serial-dev libatlas-base-dev libjasper-dev libqtgui4 libqt4-test
 
-
 # Setup client.
 echo "Setting up client"
 cd $MIRROR_ROOT/client/
@@ -50,11 +49,11 @@ sudo apt-get update && sudo apt-get install yarn nodejs npm
 # Install dependencies.
 yarn install
 
-# Create startup scripts.
+# Create startup scripts directory.
 [[ ! -e ~/.config/lxsession/LXDE-pi/autostart ]] && mkdir -p ~/.config/lxsession/LXDE-pi/
 [[ ! -f ~/.config/lxsession/LXDE-pi/autostart ]] && touch ~/.config/lxsession/LXDE-pi/autostart
 
-# Open chromium with our client URL on startup.
+# Open chromium with our mirror webapp.
 # --kiosk       Opens fullscreen
 # --incognito   Open incognito mode because Chromium won't break our UI by
 #               by prompting if we want to restore our session.
