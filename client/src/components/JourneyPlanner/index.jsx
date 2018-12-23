@@ -10,11 +10,16 @@ class JourneyPlanner extends Component {
   constructor(props:any) {
     super(props);
     this.interval = null;
+    this.initialJourneyFetchTimeoutId = null;
   }
 
   componentDidMount() {
-    this.props.dispatch(updateJourneys());
+    // Dispatch our initial call 1 second later to ensure the server runs.
+    this.initialJourneyFetchTimeoutId = setTimeout(() => {
+      this.props.dispatch(updateJourneys());
+    }, 1000);
 
+    // Update the journeys every minute.
     this.interval = setInterval(() => {
       this.props.dispatch(updateJourneys());
     }, (1000 * 60));
@@ -22,6 +27,7 @@ class JourneyPlanner extends Component {
 
   componentWillUnmount() {
     clearInterval(this.interval);
+    clearTimeout(this.initialJourneyFetchTimeoutId);
   }
 
   render() {

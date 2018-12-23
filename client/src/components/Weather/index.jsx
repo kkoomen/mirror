@@ -12,11 +12,16 @@ class Weather extends Component {
   constructor(props:any) {
     super(props);
     this.interval = null;
+    this.initialWeatherUpdateTimeoutId = null;
   }
 
   componentDidMount() {
-    this.props.dispatch(updateWeather());
+    // Dispatch our initial call 1 second later to ensure the server runs.
+    this.initialWeatherUpdateTimeoutId = setTimeout(() => {
+      this.props.dispatch(updateWeather());
+    }, 1000);
 
+    // Update the weather every 30 minutes.
     this.interval = setInterval(() => {
       this.props.dispatch(updateWeather());
     }, (1000 * 60 * 30));
@@ -35,6 +40,7 @@ class Weather extends Component {
 
   componentWillUnmount() {
     clearInterval(this.interval);
+    clearTimeout(this.initialWeatherUpdateTimeoutId);
   }
 
   render() {

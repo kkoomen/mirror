@@ -4,7 +4,7 @@
 #
 
 
-from flask import Flask, json
+from flask import Flask, jsonify
 from flask_cors import CORS
 import time
 
@@ -14,29 +14,29 @@ from vision import PiVideoStream
 import settings
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 
-@app.route('/weather', methods=['GET'])
+@app.route('/weather', methods=['GET', 'OPTIONS'])
 def weather():
     weather = Weather().get()
-    return json.dumps(weather)
+    return jsonify(weather)
 
 
-@app.route('/journey-planner', methods=['GET'])
+@app.route('/journey-planner', methods=['GET', 'OPTIONS'])
 def journeyPlanner():
     journeys = NS().get_journeys()
-    return json.dumps({
+    return jsonify({
         'departure': settings.NS_DEPARTURE_LOCATION,
         'arrival': settings.NS_ARRIVAL_LOCATION,
         'schedules': journeys,
     })
 
 
-@app.route('/activity', methods=['GET'])
+@app.route('/activity', methods=['GET', 'OPTIONS'])
 def activity():
     detected = stream.detect_face()
-    return json.dumps({
+    return jsonify({
         'detected': detected,
     })
 

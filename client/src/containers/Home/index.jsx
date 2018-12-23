@@ -26,7 +26,7 @@ class Home extends Component {
 
   render() {
     const classes = classNames(styles.Home, {
-      [styles['fade-in']]: true, // this.props.faceDetected,
+      [styles['fade-in']]: this.props.faceDetected,
     });
 
     return (
