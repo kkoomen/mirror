@@ -1,3 +1,5 @@
+![logo](logo.jpg)
+
 # Mirror
 
 This is my version of the famous
