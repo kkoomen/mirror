@@ -90,8 +90,10 @@ class PiVideoStream:
 
         # If a face is detected we obviously set the property to True, but if
         # the value of the HSV output is too dark, just assume we detect
-        # someone. This is because in the morning it's really dark and then it
-        # won't show any data, which we really do want to.
+        # someone. This is because in the morning/evening it's really dark and
+        # then it won't show any data, which we really do want to show.
+        # I added another check to detect faces only between 06:00 - 22:00, else
+        # the amount of light coming from the mirror is too much in the evening.
         faces = self.face_cascade.detectMultiScale(claheGray, 1.01, 4)
         hour = int(datetime.now().strftime('%H'))
         if len(faces) > 0 or v < 90 and (6 <= hour < 22):
