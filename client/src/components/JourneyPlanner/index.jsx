@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import Journey from './Journey';
@@ -14,10 +14,10 @@ class JourneyPlanner extends Component {
   }
 
   componentDidMount() {
-    // Dispatch our initial call 1 second later to ensure the server runs.
+    // Dispatch our initial call 5 seconds later to ensure the server runs.
     this.initialJourneyFetchTimeoutId = setTimeout(() => {
       this.props.dispatch(updateJourneys());
-    }, 1000);
+    }, 5000);
 
     // Update the journeys every minute.
     this.interval = setInterval(() => {
@@ -33,17 +33,23 @@ class JourneyPlanner extends Component {
   render() {
     return (
       <div className={styles.JourneyPlanner}>
-        <div>
-          <h2>{this.props.journeys.departure}</h2>
-        </div>
+        {this.props.journeys.schedules.length < 1 ? (
+          <p>Loading journeys...</p>
+        ) : (
+          <Fragment>
+            <div>
+              <h2>{this.props.journeys.departure}</h2>
+            </div>
 
-        <div>
-          <h2>{this.props.journeys.arrival}</h2>
-        </div>
+            <div>
+              <h2>{this.props.journeys.arrival}</h2>
+            </div>
 
-        {this.props.journeys.schedules.map((journey, index) => (
-          <Journey journey={journey} key={index} />
-        ))}
+            {this.props.journeys.schedules.map((journey, index) => (
+              <Journey journey={journey} key={index} />
+            ))}
+          </Fragment>
+        )}
       </div>
     );
   }

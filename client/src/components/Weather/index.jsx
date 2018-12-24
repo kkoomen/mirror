@@ -16,10 +16,10 @@ class Weather extends Component {
   }
 
   componentDidMount() {
-    // Dispatch our initial call 1 second later to ensure the server runs.
+    // Dispatch our initial call 5 seconds later to ensure the server runs.
     this.initialWeatherUpdateTimeoutId = setTimeout(() => {
       this.props.dispatch(updateWeather());
-    }, 1000);
+    }, 5000);
 
     // Update the weather every 30 minutes.
     this.interval = setInterval(() => {
@@ -63,7 +63,9 @@ class Weather extends Component {
               <p>{this.props.forecast.location}</p>
             </div>
           </div>
-        ) : 'Unknown'}
+        ) : (
+          <p>Loading weather...</p>
+        )}
       </div>
     );
   }
